@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm';
 
+import { ApplicationEntity } from 'src/engine/core-modules/application/application.entity';
 import { ApplicationModule } from 'src/engine/core-modules/application/application.module';
 import { AuditModule } from 'src/engine/core-modules/audit/audit.module';
 import { TokenModule } from 'src/engine/core-modules/auth/token/token.module';
@@ -37,6 +38,7 @@ import { FunctionBuildModule } from 'src/engine/metadata-modules/function-build/
       DatabaseEventTriggerEntity,
       CronTriggerEntity,
       RouteTriggerEntity,
+      ApplicationEntity,
     ]),
     FileModule,
     ThrottlerModule,
