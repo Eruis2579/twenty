@@ -17,6 +17,23 @@ export type UniversalSyncableFlatEntity = Omit<
   applicationUniversalIdentifier: string;
 };
 
+export type UniversalFlatEntityExtraProperties<
+  TEntity extends SyncableEntity,
+  TMetadataName extends
+    AllMetadataName = FromMetadataEntityToMetadataName<TEntity>,
+> = AddSuffixToEntityOneToManyProperties<TEntity, 'universalIdentifiers'> &
+  AddSuffixToEntityManyToOneProperties<
+    TEntity,
+    TMetadataName,
+    'universalIdentifier'
+  > & {
+    applicationUniversalIdentifier: string;
+  } & {
+    [P in ExtractJsonbProperties<TEntity>]: FormatJsonbSerializedRelation<
+      TEntity[P]
+    >;
+  };
+
 export type UniversalFlatEntityFrom<
   TEntity extends SyncableEntity,
   TMetadataName extends
@@ -33,15 +50,4 @@ export type UniversalFlatEntityFrom<
   | ExtractJsonbProperties<TEntity>
 > &
   CastRecordTypeOrmDatePropertiesToString<TEntity> &
-  AddSuffixToEntityOneToManyProperties<TEntity, 'universalIdentifiers'> &
-  AddSuffixToEntityManyToOneProperties<
-    TEntity,
-    TMetadataName,
-    'universalIdentifier'
-  > & {
-    applicationUniversalIdentifier: string;
-  } & {
-    [P in ExtractJsonbProperties<TEntity>]: FormatJsonbSerializedRelation<
-      TEntity[P]
-    >;
-  };
+  UniversalFlatEntityExtraProperties<TEntity, TMetadataName>;
