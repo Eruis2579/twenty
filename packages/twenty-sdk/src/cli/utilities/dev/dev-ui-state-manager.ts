@@ -102,6 +102,8 @@ export class DevUiStateManager {
         return SyncableEntity.FrontComponent;
       case 'roles':
         return SyncableEntity.Role;
+      case 'assets':
+        return SyncableEntity.Asset;
       default:
         return;
     }
